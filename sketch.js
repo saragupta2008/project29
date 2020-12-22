@@ -7,7 +7,7 @@ var engine,world
 var ground,stand1,stand2,slingshot
 function preload()
 {
-	polygonImg=loadImage("polygon.png");
+ballImg = loadImage("polygon.png");
 }
 
 function setup() {
@@ -55,11 +55,11 @@ function setup() {
 	//level3
 	box25= new Box(590,345,30,40)
 
-	polygon=Bodies.circle(50,200,20);
-  World.add(world,polygon);
+	ball=Bodies.circle(50,500,20);
+  World.add(world,ball);
   
   
-  slingshot = new Slingshot(polygon.body,{x:200, y:50});
+  slingshot = new Slingshot(this.ball,{x:50, y:500});
   
 
 	Engine.run(engine);
@@ -68,11 +68,15 @@ function setup() {
 
 
 function draw() {
-  rectMode(CENTER);
+ // rectMode(CENTER);
   background(0);
 
-  ellipseMode(RADIUS)
-  ellipse(polygon.position.x,polygon.position.y,20,20)
+ ellipseMode(RADIUS)
+  ellipse(ball.position.x,ball.position.y,20,20)
+  
+  imageMode (CENTER)
+  image(ballImg,ball.positionX,ball.positionY,40,40);
+  
   ground.display();
   stand1.display();
   stand2.display();
@@ -111,16 +115,15 @@ fill(211, 255, 150)
   
   
   
-  imageMode (CENTER)
-  image(polygonImg,polygon.positionX,polygon.positionY,40,40);
+  
 
   slingshot.display();
-  drawSprites();
+  //drawSprites();
  
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(polygon.body, {x: mouseX , y: mouseY});
+    Matter.Body.setPosition(this.ball, {x: mouseX , y: mouseY});
 }
 
 
